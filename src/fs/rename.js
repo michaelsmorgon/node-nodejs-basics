@@ -8,27 +8,11 @@ const rename = async () => {
   const filePathWrong = path.join(__dirname, '/files', 'wrongFilename.txt');
   const filePathCorrect = path.join(__dirname, '/files', 'properFilename.md');
 
-  fs.stat(filePathWrong, (err) => {
-    if (err !== null) {
-      throw new Error(errorMsg);
-    }
-  });
-
-  fs.stat(filePathCorrect, (err) => {
-    if (err === null) {
-      throw new Error(errorMsg);
-    }
-  });
-
   fs.rename(filePathWrong, filePathCorrect, (err) => {
-    throwError(err);
+    if (err) {
+      throw new Error(errorMsg);
+    }
   })
 };
-
-const throwError = (err) => {
-  if (err) {
-    throw new Error(errorMsg);
-  }
-}
 
 await rename();
