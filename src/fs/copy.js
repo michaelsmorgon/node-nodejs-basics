@@ -1,10 +1,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from "node:url";
 
 const copy = async () => {
   const errorMsg = 'FS operation failed';
-  const dirPathFrom = path.resolve('./src/fs/files');
-  const dirPathTo = path.resolve('./src/fs/files_copy');
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  const dirPathFrom = path.join(__dirname, '/files');
+  const dirPathTo = path.join(__dirname, '/files_copy');
 
   fs.stat(dirPathFrom, (err, stats) => {
     if (err !== null || !stats.isDirectory()) {

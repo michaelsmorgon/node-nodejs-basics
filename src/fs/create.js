@@ -1,11 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from "node:url";
 
 const create = async () => {
   const errorMsg = 'FS operation failed';
   const text = 'I am fresh and young';
-  const filePath = path.resolve('./src/fs/files/fresh.txt');
-
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  const filePath = path.join(__dirname, '/files', '/fresh.txt');
+  
   fs.stat(filePath, (err) => {
     if (err === null) {
       throw new Error(errorMsg);
@@ -16,7 +18,6 @@ const create = async () => {
     if (err) {
       throw new Error(errorMsg);
     }
-    console.log('Done');
   });
 };
 
